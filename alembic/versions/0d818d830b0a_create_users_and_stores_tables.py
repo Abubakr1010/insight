@@ -35,6 +35,18 @@ def upgrade():
         sa.Column("updated_at", sa.TIMESTAMP, server_default=sa.text("CURRENT_TIMESTAMP")),
     )
 
+    op.create_table(
+        "user_otps",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("email", sa.String, nullable=False),
+        sa.Column("otp_code", sa.String, nullable=False),
+        sa.Column("expires_at", sa.TIMESTAMP, nullable=False),
+        sa.Column("used", sa.Boolean, server_default=sa.text("FALSE")),
+        sa.Column("created_at", sa.TIMESTAMP, server_default=sa.text("CURRENT_TIMESTAMP")),
+    )
+
+
 def downgrade():
+    op.droptable("user_")
     op.drop_table("stores")
     op.drop_table("users")
