@@ -9,7 +9,6 @@ async def create_tables():
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,          
             email TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL,
             is_active BOOLEAN DEFAULT TRUE,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP                           
@@ -27,5 +26,13 @@ async def create_tables():
         );
         """)
 
-
-        
+        await conn.execute("""
+        CREATE TABLE IF NOT EXISTS user_otps (  
+            id SERIAL PRIMARY KEY,
+            email TEXT NOT NULL,
+            otp_code TEXT NOT NULL,
+            expires_at TIMESTAMP NOT NULL,
+            used BOOLEAN DEFAULT FALSE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             
+        );
+        """)
