@@ -7,7 +7,6 @@ services:
       - "6000:6000"
     depends_on:
       - db
-      - alembic
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
@@ -15,6 +14,9 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mydb
       DATABASE_URL: postgresql+psycopg2://user:password@db:5432/mydb
+      ACCESS_SECRET: supersecretkey
+      REFRESH_SECRET: supersecretkey
+      ALGO: HS256
     volumes:
       - .:/app
     command: >
@@ -24,27 +26,7 @@ services:
       poetry run uvicorn main:app --host 0.0.0.0 --port 6000
       "
   
-  alembic:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - db
-    environment:
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
-      DATABASE_URL: postgresql+psycopg2://user:password@db:5432/mydb
-    volumes:
-      - .:/app
-    command: >
-      bash -c "
-      ./wait-for-db.sh &&
-      poetry run alembic upgrade head
-      "
-
+  
   db:
     image: postgres:16
     restart: always

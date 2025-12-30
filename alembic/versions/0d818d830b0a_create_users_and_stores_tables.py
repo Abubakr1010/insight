@@ -47,6 +47,6 @@ def upgrade():
 
 
 def downgrade():
-    op.droptable("user_")
+    op.drop_table("user_otps") # fix op.drop_table("user_otps")   
     op.drop_table("stores")
     op.drop_table("users")
