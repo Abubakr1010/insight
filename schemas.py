@@ -35,10 +35,21 @@ class StoreRead(BaseModel):
 # OTP Models
 # -------------------------------
 
-class UserOTPCreate(BaseModel):
+class OTPRequest(BaseModel):
+    email: str
+
+class OTPResponse(BaseModel):
     email: EmailStr
     otp_code: str
     expires_at: datetime
+
+class OTPVerify(BaseModel):
+    email: EmailStr
+    otp_code: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    refresh_token: str 
 
 class UserOTPRead(BaseModel):
     id: int
@@ -48,6 +59,3 @@ class UserOTPRead(BaseModel):
     used: bool
     created_at: datetime
 
-class UserOTPVerify(BaseModel):
-    email: EmailStr
-    otp_code: str
