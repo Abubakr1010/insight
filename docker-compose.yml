@@ -14,6 +14,12 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mydb
       DATABASE_URL: postgresql+psycopg2://user:password@db:5432/mydb
+
+      SHOPIFY_API_KEY: ${SHOPIFY_API_KEY}
+      SHOPIFY_API_SECRET: ${SHOPIFY_API_SECRET}
+      SHOPIFY_SCOPE: ${SHOPIFY_SCOPE}
+      SHOPIFY_REDIRECT_URI: ${SHOPIFY_REDIRECT_URI}
+
       ACCESS_SECRET: supersecretkey
       REFRESH_SECRET: supersecretkey
       ALGO: HS256

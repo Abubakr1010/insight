@@ -7,7 +7,7 @@ from utils.otp import generate_otp, save_otp, validate_otp
 from datetime import datetime, timezone, timedelta
 
 
-router = APIRouter(prefix="/otp")
+router = APIRouter(prefix="/otp", tags=["otp"])
 
 @router.post("/send", status_code=status.HTTP_201_CREATED, response_model=OTPResponse)
 async def otp_request(data: OTPRequest):

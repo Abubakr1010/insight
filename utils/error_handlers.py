@@ -1,7 +1,11 @@
 from fastapi import Request
 from starlette import status
 from fastapi.responses import JSONResponse
-from utils.domain_error import (PermissionDenied, NotFoundError, DatabaseError, BadRequest)
+from utils.domain_error import (PermissionDenied, 
+                                NotFoundError, 
+                                DatabaseError,
+                                NotAuthenticatedUser, 
+                                BadRequest)
 from utils.logger import logger
 
 
@@ -32,5 +36,12 @@ async def bad_request(request:Request, exc:BadRequest):
     logger.warning(f"Bad request: {exc.detail}")
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
+        content={"error": "bad request", "detail":exc.detail},
+    )
+
+async def not_authenticated_user(request:Request, exc:NotAuthenticatedUser):
+    logger.warning(f"Bad request: {exc.detail}")
+    return JSONResponse(
+        status_code=status.HTTP_401_UNAUTHORIZED,
         content={"error": "bad request", "detail":exc.detail},
     )
