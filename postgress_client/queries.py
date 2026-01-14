@@ -45,7 +45,13 @@ GET_USER_BY_EMAIL = """
 
 
 CREATE_USER = """
-    INSERT INTO users (email, created_at)
-    VALUES ($1, $2)
+    INSERT INTO users (email, created_at, password_hash)
+    VALUES ($1, $2, $3)
     RETURNING *
+"""
+
+GET_USER_BY_ID = """
+    SELECT id, email, created_at
+    FROM users
+    WHERE id = $1
 """

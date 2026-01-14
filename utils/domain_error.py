@@ -12,3 +12,5 @@ class DatabaseError(AppException):
 class BadRequest(AppException):
     pass
 
+class NotAuthenticatedUser(AppException):
+    pass

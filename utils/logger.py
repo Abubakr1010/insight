@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger("inisght")
+logger = logging.getLogger("insight")
 logger.setLevel(logging.INFO)
 
 ch = logging.StreamHandler()  
