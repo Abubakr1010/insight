@@ -45,4 +45,3 @@ async def get_db():
     finally:
         await pool.release(conn)
 
-
