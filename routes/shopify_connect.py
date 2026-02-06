@@ -1,8 +1,8 @@
 import os
 from fastapi import APIRouter, Body, Depends
 from utils.shopify_state import generate_state
-from fastapi.security import OAuth2PasswordBearer
 from utils.user import get_current_user
+from urllib.parse import quote
 
 
 router = APIRouter(tags=["shopify"])
@@ -13,6 +13,8 @@ SHOPIFY_SCOPES = os.environ.get("SHOPIFY_SCOPE")
 SHOPIFY_SECRET = os.environ.get("SHOPIFY_API_SECRET")
 SHOPIFY_REDIRECT_URI = os.environ.get("SHOPIFY_REDIRECT_URI")
 
+
+encoded_redirect_uri = quote(SHOPIFY_REDIRECT_URI, safe="")
 
 
 @router.post("/connect")
@@ -30,7 +32,7 @@ async def connect_shopify(
         f"https://{shop}/admin/oauth/authorize"
         f"?client_id={SHOPIFY_API_KEY}"
         f"&scope={SHOPIFY_SCOPES}"
-        f"&redirect_uri={SHOPIFY_REDIRECT_URI}"
+        f"&redirect_uri={encoded_redirect_uri}"
         f"&state={state}"
     )
 

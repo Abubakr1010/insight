@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from routes.otp import router as otp_router
-from routes.shopify import router as shopify_router
+from routes.shopify_connect import router as shopify_router
 from postgress_client.connection import Database
 from utils.domain_error import (PermissionDenied, 
                                 NotFoundError, 
