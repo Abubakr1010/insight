@@ -18,6 +18,7 @@ alembic = "^1.17.0"
 python-dotenv = "^1.2.1"
 python-jose = "^3.5.0"
 pydantic = {extras = ["email"], version = "^2.12.5"}
+resend = "^2.23.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8.0"
