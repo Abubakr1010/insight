@@ -1,1 +1,10 @@
 .env
+.terraform
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Ignore large archives
+*.tar.gz
+*.zip
+
