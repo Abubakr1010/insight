@@ -3,9 +3,9 @@ from utils.user import get_current_user
 
 
 
-router = APIRouter(tags=["auth"])
+otp_router = APIRouter(tags=["auth"])
 
-@router.get("/user")
+@otp_router.get("/user")
 async def read_current_user(current_user = Depends(get_current_user)):
     return {
             "id":current_user["id"],
