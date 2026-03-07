@@ -5,7 +5,7 @@ from utils.user import get_user_by_email, create_user
 from schemas import OTPResponse, OTPRequest, TokenResponse, OTPVerify
 from utils.otp import generate_otp, save_otp, validate_otp
 from datetime import datetime, timezone, timedelta
-
+from services.email_service import send_email
 
 router = APIRouter(prefix="/otp", tags=["otp"])
 
@@ -15,6 +15,7 @@ async def otp_request(data: OTPRequest):
     otp = generate_otp()
     expires_at = datetime.now(timezone.utc) + timedelta(minutes=5)
     await save_otp(email=email, otp_code=otp, expires_at=expires_at)
+    await send_email(email, otp)
     return OTPResponse(email=email, otp_code=otp, expires_at=expires_at)
 
 
