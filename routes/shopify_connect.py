@@ -14,7 +14,6 @@ SHOPIFY_SECRET = os.environ.get("SHOPIFY_API_SECRET")
 SHOPIFY_REDIRECT_URI = os.environ.get("SHOPIFY_REDIRECT_URI")
 
 
-encoded_redirect_uri = quote(SHOPIFY_REDIRECT_URI, safe="")
 
 
 @router.post("/connect")
@@ -22,17 +21,20 @@ async def connect_shopify(
     shop: str = Body(embed=True),
     user = Depends(get_current_user)
 ):
-    
+    current_redirect_uri = os.environ.get("SHOPIFY_REDIRECT_URI")
+    encoded_uri = quote(current_redirect_uri, safe="")
+
     state = generate_state(
         user_id = user["id"],
         shop = shop
     )
 
+
     oauth_url = (
         f"https://{shop}/admin/oauth/authorize"
         f"?client_id={SHOPIFY_API_KEY}"
         f"&scope={SHOPIFY_SCOPES}"
-        f"&redirect_uri={encoded_redirect_uri}"
+        f"&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fcallback"
         f"&state={state}"
     )
 
@@ -40,4 +42,6 @@ async def connect_shopify(
         "oauth_url":oauth_url
     }
 
+
+#encoded_redirect_uri = quote(SHOPIFY_REDIRECT_URI, safe="")
 

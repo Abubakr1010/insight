@@ -4,7 +4,7 @@ services:
      context: .
      dockerfile: Dockerfile.dev
     ports:
-      - "6000:6000"
+      - "8000:8000"
     depends_on:
       - db
     environment:
@@ -29,7 +29,7 @@ services:
       bash -c "
       ./wait-for-db.sh &&
       poetry run alembic upgrade head &&
-      poetry run uvicorn main:app --host 0.0.0.0 --port 6000
+      poetry run uvicorn main:app --host 0.0.0.0 --port 8000
       "
   
   

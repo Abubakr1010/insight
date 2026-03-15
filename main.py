@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from routes.otp import router as otp_router
 from routes.shopify_connect import router as shopify_router
+from routes.shopify_callback import router as callback_router
 from postgress_client.connection import Database
 from utils.domain_error import (PermissionDenied, 
                                 NotFoundError, 
@@ -69,6 +70,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(otp_router)
 app.include_router(shopify_router)
+app.include_router(callback_router)
 
 app.add_middleware(SessionMiddleware, secret_key=SECRET)
 

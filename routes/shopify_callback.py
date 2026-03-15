@@ -11,7 +11,7 @@ SHOPIFY_API_KEY = os.environ.get("SHOPIFY_API_KEY")
 SHOPIFY_SECRET = os.environ.get("SHOPIFY_API_SECRET")
 
 
-@router.get("/callback")
+@router.get("/auth/callback")
 async def shopify_callback(request:Request):
     params = dict(request.query_params)
 
@@ -31,7 +31,7 @@ async def shopify_callback(request:Request):
     message = "&".join(f"{k}={v}" for k,v in sorted_params)
 
     computed_hmac = hmac.new(
-        SHOPIFY_API_KEY.encode(),
+        SHOPIFY_SECRET.encode(),
         message.encode(),
         hashlib.sha256
     ).hexdigest()
